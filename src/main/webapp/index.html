@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Referral System</title>
+<style>
+body {
+	font-family: Arial, sans-serif;
+	background-image:url('https://t3.ftcdn.net/jpg/05/73/55/12/240_F_573551225_h5mGL6pOLL5mDJi9pz7nYfG8uCppOfvW.jpg');
+	background-size:cover;
+	background-repeat: no-repeat;
+	background-attachment:fixed;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 100vh;
+	margin: 0;
+}
+
+.container {
+	background-color: rgba(255, 255, 255, 0.8);
+	padding: 20px;
+	border-radius: 8px;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+	width: 100%;
+	max-width: 400px;
+	text-align: center;
+	transition: transform 0.3s;
+}
+
+.container:hover {
+	transform: scale(1.02);
+}
+
+h2 {
+	color: #333;
+	margin-bottom: 20px;
+}
+
+input[type="text"], input[type="email"], input[type="password"], input[type="submit"]
+	{
+	width: 100%;
+	padding: 10px;
+	margin: 10px 0;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	box-sizing: border-box;
+	transition: border-color 0.3s;
+}
+
+input[type="text"]:focus, input[type="email"]:focus, input[type="password"]:focus
+	{
+	border-color: #4CAF50;
+}
+
+input[type="submit"] {
+	background-color: #4CAF50;
+	color: white;
+	border: none;
+	cursor: pointer;
+	transition: background-color 0.3s;
+}
+
+input[type="submit"]:hover {
+	background-color: #45a049;
+}
+
+.success-message {
+	display: none;
+	margin-top: 20px;
+	color: #4CAF50;
+}
+
+a {
+	color: #4CAF50;
+	text-decoration: none;
+	transition: color 0.3s;
+}
+
+a:hover {
+	color: #333;
+}
+</style>
+</head>
+<body>
+	<div class="container">
+		<h2>Login to Referral System</h2>
+		<form id="loginForm" action="login" onsubmit="return formValidation()"
+			method="POST">
+			<input type="text" name="name" placeholder="Name" required><br>
+			<input type="email" name="email" placeholder="Email" required><br>
+			<input type="password" name="password" placeholder="Password"
+				required><br> <input type="submit" value="Submit">
+		</form>
+		<div class="success-message" id="successMessage">
+			<h3>Registration Successful!</h3>
+			<p>
+				Your referral code is: <strong id="referralCode"></strong>
+			</p>
+			<a href="index.html">Go back to Home</a>
+		</div>
+		<form action="searchReferal" method="post">
+			<input type="text" name="rcode" placeholder="Enter Referral Code"
+				required><br> <input type="submit" value="Search">
+		</form>
+	</div>
+	<script type="text/javascript">
+        function formValidation() {
+            var name = document.getElementsByName('name')[0].value;
+            var regex = /^[a-zA-Z\s]+$/;
+
+            if (!regex.test(name)) {
+                alert('Please enter a valid name. Only alphabets are allowed.');
+                return false;
+            }
+
+            return true;
+        }
+
+        function showSuccessMessage(code) {
+            document.getElementById('referralCode').textContent = code;
+            document.getElementById('successMessage').style.display = 'block';
+            document.getElementById('loginForm').style.display = 'none';
+        }
+
+        // Check if the referral code exists in the URL parameters
+        const urlParams = new URLSearchParams(window.location.search);
+        const referralCode = urlParams.get('referralCode');
+        if (referralCode) {
+            showSuccessMessage(referralCode);
+        }
+
+        function searchReferral() {
+            var searchQuery = document.getElementById('searchQuery').value;
+            alert('Searching for: ' + searchQuery); // Placeholder for actual search logic
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+        }
+        .info-box {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px;
+            border-radius: 4px;
+        }
+        .container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        input[type="submit"] {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px;
+            width: 100%;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+    </style>
+    <script type="text/javascript">
+        document.addEventListener("DOMContentLoaded", function() {
+            // Function to display the referral code and reward points
+            function showInfo(code, points) {
+                document.getElementById('referralCode').textContent = "Referral Code: " + code;
+                document.getElementById('rewardPoints').textContent = "Reward Points: " + points;
+                document.getElementById('infoBox').style.display = 'block';
+                document.getElementById('displayReferralCode').textContent = code;
+                document.getElementById('displayRewardPoints').textContent = points;
+            }
+
+            // Check if the referral code and reward points exist in the URL parameters
+            const urlParams = new URLSearchParams(window.location.search);
+            const referralCode = urlParams.get('referralCode');
+            const rewardPoints = urlParams.get('rewardPoints');
+            if (referralCode && rewardPoints) {
+                showInfo(referralCode, rewardPoints);
+            }
+        });
+    </script>
+</head>
+<body>
+    <div id="infoBox" class="info-box" style="display: none;">
+        <span id="referralCode"></span><br>
+        <span id="rewardPoints"></span>
+    </div>
+    <div class="container">
+        <h1>Welcome Home!</h1>
+        <p>Welcome to the home page. You are successfully logged in!</p>
+        <p>Your referral code is: <strong id="displayReferralCode"></strong></p>
+        <p>Your reward points are: <strong id="displayRewardPoints"></strong></p>
+        <form action="addReward" method="POST">
+            <input type="text" name="rewardCode" placeholder="Enter reward code" required><br>
+            <input type="submit" value="Add Reward">
+        </form>
+        <a href="index.html">Logout</a>
+    </div>
+</body>
+</html>
